@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Ads Toolkit 2026</title>
+    <style>
+        :root {
+            --color-bg-primary: #0a0e27;
+            --color-bg-secondary: #151b3d;
+            --color-bg-card: #1a2145;
+            --color-accent: #00d4ff;
+            --color-accent-secondary: #ff006e;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #a0aec0;
+            --color-success: #00ff88;
+            --color-warning: #ffd600;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--color-accent-secondary) 0%, transparent 70%);
+            bottom: -250px;
+            right: -250px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--color-success) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, -100px) scale(1.1); }
+            66% { transform: translate(-100px, 100px) scale(0.9); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 10px;
+        }
+
+        .tab-btn {
+            flex-shrink: 0;
+            padding: 12px 24px;
+            background: var(--color-bg-card);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            color: var(--color-text-primary);
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: var(--color-bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            flex: 1;
+        }
+
+        .tool-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-free {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--color-success);
+        }
+
+        .badge-paid {
+            background: rgba(255, 214, 0, 0.2);
+            color: var(--color-warning);
+        }
+
+        .badge-freemium {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--color-accent);
+        }
+
+        .tool-description {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .tool-price {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            color: var(--color-text-primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .tool-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .courses-section {
+            margin-bottom: 40px;
+        }
+
+        .course-card {
+            background: var(--color-bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .course-rank {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .course-author {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .course-details {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .course-tag {
+            padding: 4px 12px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--color-accent);
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--color-bg-secondary);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .filter-btn.active {
+            background: var(--color-accent);
+            color: var(--color-bg-primary);
+            border-color: var(--color-accent);
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--color-bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-text {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .course-header {
+                flex-direction: column;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .lang-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+            border: none;
+            border-radius: 12px;
+            color: var(--color-text-primary);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">🚀 Google Ads Toolkit 2026</div>
+            <div class="tagline">Complete Resource Hub for Local Business Success</div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-number">18</div>
+                <div class="stat-label">Premium Tools</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Top Courses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">11</div>
+                <div class="stat-label">Free Resources</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">2026 Updated</div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="learning-path">🎓 Learning Path</button>
+            <button class="tab-btn" data-tab="courses">📚 Courses</button>
+            <button class="tab-btn" data-tab="free-tools">🆓 Free Tools</button>
+            <button class="tab-btn" data-tab="paid-tools">💎 Premium Tools</button>
+            <button class="tab-btn" data-tab="landing-pages">🎨 Landing Pages</button>
+            <button class="tab-btn" data-tab="quick-start">⚡ Quick Start</button>
+        </div>
+
+        <div id="learning-path" class="tab-content active">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">🎓</span> Complete Learning Path</h2>
+                <p class="section-subtitle">Step-by-step certification path from beginner to Google Ads expert</p>
+            </div>
+
+            <div class="course-card" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 0, 110, 0.15)); border: 2px solid var(--color-accent);">
+                <div class="course-info">
+                    <div class="course-title" style="font-size: 1.5rem;">💡 Recommended Learning Strategy</div>
+                </div>
+                <div class="course-details" style="margin-top: 15px; font-size: 1rem; line-height: 1.8;">
+                    <p style="color: var(--color-text-primary); margin-bottom: 15px;">
+                        Start with the flower shop specific course, then move to Google's official certifications to gain credentials recognized by the industry.
+                    </p>
+                    <p style="color: var(--color-success); font-weight: 600; margin-bottom: 10px;">
+                        📝 Important: Take notes throughout every course!
+                    </p>
+                    <ul style="margin-left: 20px; color: var(--color-text-secondary); line-height: 1.8;">
+                        <li>Create a dedicated folder in iPhone Notes for each course/video</li>
+                        <li>Download certificates and email them to yourself</li>
+                        <li>Save certificates on your phone AND print them</li>
+                        <li>Keep printed certificates in a physical folder - it makes achievements feel more real!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--color-accent); margin-bottom: 15px;">
+                    Phase 1: Foundation (Start Here)
+                </h3>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">1</div>
+                    <div class="course-info">
+                        <div class="course-title">Flower Shop Specific Course</div>
+                        <div class="course-author">Alex Does Digital</div>
+                    </div>
+                </div>
+                <div class="course-details">⏱️ 13 Minutes | Start Here</div>
+                <div class="course-tags">
+                    <span class="course-tag">Flower Shop Focus</span>
+                    <span class="course-tag">Quick Start</span>
+                </div>
+                <p class="tool-description">
+                    Perfect first video! Shows you exactly how to set up Google Ads specifically for a flower shop. Watch this before anything else to understand the local florist context.
+                </p>
+                <a href="https://www.youtube.com/watch?v=MtTxhYm-ucE" target="_blank" class="tool-link">Watch Now →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">2</div>
+                    <div class="course-info">
+                        <div class="course-title">Digital Marketing Fundamentals</div>
+                        <div class="course-author">Google via Coursera</div>
+                    </div>
+                </div>
+                <div class="course-details">⏱️ Full Course | Basics &amp; Foundation</div>
+                <div class="course-tags">
+                    <span class="course-tag">Official Google</span>
+                    <span class="course-tag">Beginner Friendly</span>
+                </div>
+                <p class="tool-description">
+                    Learn all the marketing basics before diving into advanced tactics. Covers digital marketing foundations and e-commerce essentials.
+                </p>
+                <a href="https://www.coursera.org/learn/foundations-of-digital-marketing-and-e-commerce" target="_blank" class="tool-link">Start Course →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">3</div>
+                    <div class="course-info">
+                        <div class="course-title">Complete Google Ads Course 2026</div>
+                        <div class="course-author">Darren Taylor</div>
+                    </div>
+                </div>
+                <div class="course-details">⏱️ 5+ Hours | 60+ Lessons</div>
+                <div class="course-tags">
+                    <span class="course-tag">Comprehensive</span>
+                    <span class="course-tag">Search Campaigns</span>
+                </div>
+                <p class="tool-description">
+                    Master Search campaigns - the foundation of everything. Learn keyword strategy, ad groups, ad copy, extensions, conversion tracking, and optimization.
+                </p>
+                <a href="https://www.youtube.com/watch?v=3KVxB-Rpu1c" target="_blank" class="tool-link">Watch Course →</a>
+            </div>
+
+            <div style="margin-top: 40px; margin-bottom: 20px;">
+                <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--color-accent); margin-bottom: 15px;">
+                    Phase 2: Official Google Certifications
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: 20px;">
+                    These are the 3 MOST IMPORTANT certifications from Google Skillshop:
+                </p>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank" style="background: linear-gradient(135deg, #ffd600, #ff006e);">🏆</div>
+                    <div class="course-info">
+                        <div class="course-title">Google Ads Search Certification</div>
+                        <div class="course-author">Google Skillshop - Official</div>
+                    </div>
+                </div>
+                <div class="course-details">🎓 Free Certification | Most Critical</div>
+                <div class="course-tags">
+                    <span class="course-tag">Certificate Included</span>
+                    <span class="course-tag">High Priority</span>
+                </div>
+                <p class="tool-description">
+                    THE most important certification. Search ads are your high-intent conversion engine. This is where most of your flower orders will come from.
+                </p>
+                <a href="https://skillshop.docebosaas.com/learn/courses/8692/google-ads-search-certification" target="_blank" class="tool-link">Get Certified →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank" style="background: linear-gradient(135deg, #ffd600, #ff006e);">🏆</div>
+                    <div class="course-info">
+                        <div class="course-title">AI-Powered Shopping Ads Certification</div>
+                        <div class="course-author">Google Skillshop - Official</div>
+                    </div>
+                </div>
+                <div class="course-details">🎓 Free Certification | E-commerce Focus</div>
+                <div class="course-tags">
+                    <span class="course-tag">Shopping/PMax</span>
+                    <span class="course-tag">AI Powered</span>
+                </div>
+                <p class="tool-description">
+                    Learn to show your flower products across Google Search, Images, YouTube, and more. Critical for online orders and product catalog visibility.
+                </p>
+                <a href="https://skillshop.docebosaas.com/learn/courses/9348/ai-powered-shopping-ads-certification" target="_blank" class="tool-link">Get Certified →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank" style="background: linear-gradient(135deg, #ffd600, #ff006e);">🏆</div>
+                    <div class="course-info">
+                        <div class="course-title">AI-Powered Performance Ads Certification</div>
+                        <div class="course-author">Google Skillshop - Official</div>
+                    </div>
+                </div>
+                <div class="course-details">🎓 Free Certification | Performance Max</div>
+                <div class="course-tags">
+                    <span class="course-tag">PMax Expert</span>
+                    <span class="course-tag">Multi-Channel</span>
+                </div>
+                <p class="tool-description">
+                    Master Performance Max campaigns that run across all Google channels automatically. Perfect for both phone calls AND online orders.
+                </p>
+                <a href="https://skillshop.docebosaas.com/learn/courses/8510/ai-powered-performance-ads-certification" target="_blank" class="tool-link">Get Certified →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">4</div>
+                    <div class="course-info">
+                        <div class="course-title">Google Ads Measurement Certification</div>
+                        <div class="course-author">Google Skillshop - Official</div>
+                    </div>
+                </div>
+                <div class="course-details">🎓 Free Certification | Analytics &amp; Optimization</div>
+                <div class="course-tags">
+                    <span class="course-tag">Tracking</span>
+                    <span class="course-tag">ROI Focus</span>
+                </div>
+                <p class="tool-description">
+                    Learn to measure what matters: conversions, ROI, and campaign performance. Essential for knowing which ads actually make you money.
+                </p>
+                <a href="https://skillshop.docebosaas.com/learn/courses/18539/google-ads-measurement-certification" target="_blank" class="tool-link">Get Certified →</a>
+            </div>
+
+            <div style="margin-top: 40px; margin-bottom: 20px;">
+                <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--color-accent); margin-bottom: 15px;">
+                    Phase 3: Advanced Strategy
+                </h3>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">5</div>
+                    <div class="course-info">
+                        <div class="course-title">Performance Max Deep Dive</div>
+                        <div class="course-author">Expert Tutorial</div>
+                    </div>
+                </div>
+                <div class="course-details">⏱️ Full Course | Setup to Scaling</div>
+                <div class="course-tags">
+                    <span class="course-tag">Advanced PMax</span>
+                </div>
+                <p class="tool-description">
+                    Go deeper into PMax campaigns after getting certified. Learn asset groups, audience signals, and scaling strategies.
+                </p>
+                <a href="https://www.youtube.com/watch?v=cQHE-iQBMek" target="_blank" class="tool-link">Watch Course →</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">6</div>
+                    <div class="course-info">
+                        <div class="course-title">Demand Gen Strategy 2026</div>
+                        <div class="course-author">Step-by-Step Tutorial</div>
+                    </div>
+                </div>
+                <div class="course-details">⏱️ Focused Tutorial | Upper Funnel</div>
+                <div class="course-tags">
+                    <span class="course-tag">Awareness</span>
+                    <span class="course-tag">Remarketing</span>
+                </div>
+                <p class="tool-description">
+                    Learn when and how to use Demand Gen for brand awareness and remarketing. Perfect for showing bouquet creatives on YouTube and Gmail.
+                </p>
+                <a href="https://www.youtube.com/watch?v=CkF-Hh_6yPE" target="_blank" class="tool-link">Watch Course →</a>
+            </div>
+
+            <div class="course-card" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1)); border-color: rgba(0, 212, 255, 0.3);">
+                <div class="course-info">
+                    <div class="course-title" style="font-size: 1.3rem;">🌐 Explore All Google Skillshop Courses</div>
+                </div>
+                <p class="tool-description" style="margin-top: 15px;">
+                    Google Skillshop has many more courses including ad creative psychology, video creation, local business growth strategies, and advanced optimization techniques.
+                </p>
+                <a href="https://skillshop.docebosaas.com/learn/public/catalog/view/1" target="_blank" class="tool-link">Browse All Courses →</a>
+            </div>
+
+            <div class="course-card" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1)); border: 2px solid var(--color-success);">
+                <div class="course-info">
+                    <div class="course-title" style="font-size: 1.3rem;">📚 Reference: Full Research Chat</div>
+                </div>
+                <p class="tool-description" style="margin-top: 15px;">
+                    Want to see all the research behind this toolkit? Check out the complete Perplexity conversation where we found and vetted every resource.
+                </p>
+                <a href="https://www.perplexity.ai/search/43eb887f-2461-430a-9e73-da807a8c0331" target="_blank" class="tool-link">View Research →</a>
+            </div>
+        </div>
+
+        <div id="courses" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">📚</span> Top Courses for 2026</h2>
+                <p class="section-subtitle">Expert-curated learning paths for flower shop Google Ads mastery</p>
+            </div>
+
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">All Courses</button>
+                <button class="filter-btn" data-filter="english">English</button>
+                <button class="filter-btn" data-filter="spanish">Español</button>
+                <button class="filter-btn" data-filter="pmax">PMax Focus</button>
+            </div>
+
+            <div class="courses-section">
+                <div class="course-card" data-lang="english" data-type="general">
+                    <div class="course-header">
+                        <div class="course-rank">1</div>
+                        <div class="course-info">
+                            <div class="course-title">Free Google Ads Course 2026</div>
+                            <div class="course-author">Darren Taylor</div>
+                        </div>
+                    </div>
+                    <div class="course-details">⏱️ 5+ Hours | 60+ Lessons | Complete Foundation</div>
+                    <div class="course-tags">
+                        <span class="course-tag">Search Campaigns</span>
+                        <span class="course-tag">Conversion Tracking</span>
+                        <span class="course-tag">Optimization</span>
+                    </div>
+                    <p class="tool-description">The ultimate comprehensive course covering everything from setup to advanced optimization. Perfect foundation for any local business including flower shops.</p>
+                    <a href="https://www.youtube.com/watch?v=3KVxB-Rpu1c" target="_blank" class="tool-link">Watch Course →</a>
+                </div>
+
+                <div class="course-card" data-lang="english" data-type="florist">
+                    <div class="course-header">
+                        <div class="course-rank">2</div>
+                        <div class="course-info">
+                            <div class="course-title">Google Ads For Florists &amp; Flower Shops</div>
+                            <div class="course-author">Alex Does Digital</div>
+                        </div>
+                    </div>
+                    <div class="course-details">⏱️ 13 Minutes | Florist-Specific | Practical Setup</div>
+                    <div class="course-tags">
+                        <span class="course-tag">Flower Shop Focus</span>
+                        <span class="course-tag">Local Targeting</span>
+                    </div>
+                    <p class="tool-description">Dedicated walkthrough using a real flower shop example. Covers keyword research, location targeting, and avoiding Google's costly recommendations.</p>
+                    <a href="https://www.youtube.com/watch?v=MtTxhYm-ucE" target="_blank" class="tool-link">Watch Course →</a>
+                </div>
+
+                <div class="course-card" data-lang="english" data-type="pmax">
+                    <div class="course-header">
+                        <div class="course-rank">3</div>
+                        <div class="course-info">
+                            <div class="course-title">Performance Max Full Course 2026</div>
+                            <div class="course-author">Various Experts</div>
+                        </div>
+                    </div>
+                    <div class="course-details">⏱️ Full Course | Setup to Scaling</div>
+                    <div class="course-tags">
+                        <span class="course-tag">Performance Max</span>
+                        <span class="course-tag">Asset Groups</span>
+                        <span class="course-tag">Scaling</span>
+                    </div>
+                    <p class="tool-description">Complete PMax training covering campaign setup, asset structure, audience targeting, and proven scaling strategies for local businesses.</p>
+                    <a href="https://www.youtube.com/watch?v=cQHE-iQBMek" target="_blank" class="tool-link">Watch Course →</a>
+                </div>
+
+                <div class="course-card" data-lang="spanish" data-type="general">
+                    <div class="course-header">
+                        <div class="course-rank">4</div>
+                        <div class="course-info">
+                            <div class="course-title">Curso de Google Ads 2026 Completo</div>
+                            <div class="course-author">Alan Valdez</div>
+                        </div>
+                    </div>
+                    <div class="course-details">⏱️ 6+ Horas | Curso Completo en Español</div>
+                    <div class="course-tags">
+                        <span class="course-tag">Español</span>
+                        <span class="course-tag">Desde Cero</span>
+                    </div>
+                    <p class="tool-description">El curso más completo en español. Cubre desde conceptos básicos hasta aspectos avanzados de Google Ads.</p>
+                    <a href="https://www.youtube.com/watch?v=jE1qsDWV61o" target="_blank" class="tool-link">Ver Curso →</a>
+                </div>
+
+                <div class="course-card" data-lang="spanish" data-type="pmax">
+                    <div class="course-header">
+                        <div class="course-rank">5</div>
+                        <div class="course-info">
+                            <div class="course-title">Guía Completa de Performance Max</div>
+                            <div class="course-author">Victor Peinado Digital</div>
+                        </div>
+                    </div>
+                    <div class="course-details">⏱️ Curso Completo | PMax en Español</div>
+                    <div class="course-tags">
+                        <span class="course-tag">Español</span>
+                        <span class="course-tag">Performance Max</span>
+                    </div>
+                    <p class="tool-description">Guía paso a paso en español para configurar y optimizar campañas de Performance Max correctamente.</p>
+                    <a href="https://www.youtube.com/watch?v=2Sg_GhTe7RM" target="_blank" class="tool-link">Ver Curso →</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="free-tools" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">🆓</span> Free Tools</h2>
+                <p class="section-subtitle">Essential zero-cost resources to launch and optimize your campaigns</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Keyword Planner</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">The official Google tool for keyword research. Get search volume data, keyword ideas, bid estimates, and forecasting directly from Google's data.</p>
+                    <div class="tool-price">✅ 100% Free with Google Ads Account</div>
+                    <a href="https://ads.google.com/home/tools/keyword-planner/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Trends</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Critical for seasonal businesses like flower shops. See exactly when demand spikes (Valentine's Day, Mother's Day) to plan budgets ahead.</p>
+                    <div class="tool-price">✅ 100% Free Forever</div>
+                    <a href="https://trends.google.com/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Ads Transparency Center</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Spy on any competitor's live Google ads for free. Search a competing florist and see their exact ads, copy, images, and creative strategy.</p>
+                    <div class="tool-price">✅ 100% Free Forever</div>
+                    <a href="https://adstransparency.google.com/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Ads Editor</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Desktop application for bulk editing and offline campaign management. Essential for making fast changes across multiple campaigns efficiently.</p>
+                    <div class="tool-price">✅ Free Desktop App</div>
+                    <a href="https://ads.google.com/home/tools/ads-editor/" target="_blank" class="tool-link">Download →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Analytics (GA4)</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Track what happens after the click — purchases, calls, form fills. Essential for knowing which campaigns actually make money.</p>
+                    <div class="tool-price">✅ Free with Google Account</div>
+                    <a href="https://analytics.google.com/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Tag Manager</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Install conversion tracking without coding. Track phone calls, button clicks, form submissions, and purchases without editing site code.</p>
+                    <div class="tool-price">✅ Free with Google Account</div>
+                    <a href="https://tagmanager.google.com/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">WordStream Keyword Tool</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Free keyword suggestions with competition data. Good secondary tool to find long-tail keywords Google Keyword Planner might miss.</p>
+                    <div class="tool-price">✅ Free with Email</div>
+                    <a href="https://www.wordstream.com/keywords" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">AnswerThePublic</div>
+                        <span class="tool-badge badge-freemium">Freemium</span>
+                    </div>
+                    <p class="tool-description">Discovers question-based keywords. Find what real people ask like "can I get flowers delivered today" for ad copy inspiration.</p>
+                    <div class="tool-price">3 Free Searches/Day</div>
+                    <a href="https://answerthepublic.com/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Canva</div>
+                        <span class="tool-badge badge-freemium">Freemium</span>
+                    </div>
+                    <p class="tool-description">Create image and video assets for PMax and Demand Gen. Make bouquet photos, promotional graphics, and short video clips fast.</p>
+                    <div class="tool-price">Free Tier Available</div>
+                    <a href="https://www.canva.com/" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">WordStream Performance Grader</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Free audit of your Google Ads account. Grades your Quality Score, CTR, wasted spend, and provides quick health checks anytime.</p>
+                    <div class="tool-price">✅ Free Account Audit</div>
+                    <a href="https://www.wordstream.com/google-ads-performance-grader" target="_blank" class="tool-link">Open Tool →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Google Skillshop</div>
+                        <span class="tool-badge badge-free">Free</span>
+                    </div>
+                    <p class="tool-description">Official Google Ads training and certification. Get certified for free and stay up-to-date with Google's official best practices.</p>
+                    <div class="tool-price">✅ Free Certification</div>
+                    <a href="https://skillshop.withgoogle.com/googleads" target="_blank" class="tool-link">Start Learning →</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="paid-tools" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">💎</span> Premium Tools</h2>
+                <p class="section-subtitle">Professional-grade tools for scaling and optimization</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">SEMrush</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">The gold standard for competitive intelligence. Competitor keyword research, ad copy spy, keyword gap analysis, PPC position tracking, and Shopping insights all in one platform.</p>
+                    <div class="tool-price">From $139.95/month</div>
+                    <a href="https://www.semrush.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Optmyzr</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Best overall Google Ads optimization tool. Automation rules, bid/budget management, PMax support, anomaly alerts, and one-click optimizations for serious advertisers.</p>
+                    <div class="tool-price">From $208/month</div>
+                    <a href="https://www.optmyzr.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Opteo</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Simpler optimization tool that scans your account and surfaces easy improvements. Perfect for small business owners who want "just tell me what to fix".</p>
+                    <div class="tool-price">From $129/month</div>
+                    <a href="https://opteo.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">SpyFu</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Deep competitor PPC research. See any florist competitor's full keyword history, ad copy history, and estimated spend to reverse-engineer their strategy.</p>
+                    <div class="tool-price">From $39/month</div>
+                    <a href="https://www.spyfu.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Mangools (KWFinder)</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Easiest keyword research UI on the market. Great if SEMrush feels overwhelming. Clean interface with powerful keyword discovery features.</p>
+                    <div class="tool-price">From $29.90/month</div>
+                    <a href="https://mangools.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Ubersuggest</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Budget-friendly alternative with keyword ideas, competitor analysis, and content suggestions. Lifetime deal available for $290 (excellent value).</p>
+                    <div class="tool-price">From $29/month or $290 Lifetime</div>
+                    <a href="https://neilpatel.com/ubersuggest/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Adzooma</div>
+                        <span class="tool-badge badge-freemium">Freemium</span>
+                    </div>
+                    <p class="tool-description">Multi-platform management (Google + Meta + Microsoft). Performance reports and one-click fixes. Surprisingly useful free tier available.</p>
+                    <div class="tool-price">Free Tier + Paid Plans</div>
+                    <a href="https://www.adzooma.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">ClickCease</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Click fraud protection that detects and blocks fake/bot clicks. For local businesses, competitors and bots clicking your ads can burn money fast.</p>
+                    <div class="tool-price">From ~$69/month</div>
+                    <a href="https://www.clickcease.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="landing-pages" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">🎨</span> Landing Page Builders</h2>
+                <p class="section-subtitle">High-converting landing pages to maximize your ad ROI</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Leadpages</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Best value for small business. Easy drag-and-drop interface with templates specifically optimized for lead generation and local businesses like flower shops.</p>
+                    <div class="tool-price">From $49/month</div>
+                    <a href="https://www.leadpages.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Unbounce</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Best for conversion optimization. Smart Traffic AI automatically routes visitors to best-performing page variant. Built-in A/B testing included.</p>
+                    <div class="tool-price">From $99/month</div>
+                    <a href="https://unbounce.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-name">Instapage</div>
+                        <span class="tool-badge badge-paid">Paid</span>
+                    </div>
+                    <p class="tool-description">Fastest page creation with AdMap feature that connects specific ads to specific landing pages. Perfect for testing multiple flower shop offers.</p>
+                    <div class="tool-price">From $79/month</div>
+                    <a href="https://instapage.com/" target="_blank" class="tool-link">View Plans →</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="quick-start" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title"><span class="icon">⚡</span> Quick Start Guide</h2>
+                <p class="section-subtitle">Your step-by-step launch plan for flower shop success</p>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">📅</div>
+                    <div class="course-info">
+                        <div class="course-title">Week 1: Foundation Setup</div>
+                    </div>
+                </div>
+                <div class="course-details">
+                    <strong>Tools to Install:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--color-text-secondary);">
+                        <li>Set up Google Ads account</li>
+                        <li>Install Google Analytics (GA4)</li>
+                        <li>Install Google Tag Manager</li>
+                        <li>Download Google Ads Editor</li>
+                    </ul>
+                </div>
+                <div class="course-details" style="margin-top: 15px;">
+                    <strong>Watch These Courses:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--color-text-secondary);">
+                        <li>Darren Taylor's Free Google Ads Course (first 2 hours)</li>
+                        <li>Google Ads For Florists by Alex Does Digital</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">🔍</div>
+                    <div class="course-info">
+                        <div class="course-title">Week 2: Keyword Research &amp; Competitor Analysis</div>
+                    </div>
+                </div>
+                <div class="course-details">
+                    <strong>Use These Tools:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--color-text-secondary);">
+                        <li>Google Keyword Planner → Find "flower delivery near me", "florist [your city]"</li>
+                        <li>Google Trends → Identify seasonal peaks (Valentine's, Mother's Day)</li>
+                        <li>Google Ads Transparency Center → Spy on 3 local competitor florists</li>
+                        <li>AnswerThePublic → Find question-based keywords</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">🚀</div>
+                    <div class="course-info">
+                        <div class="course-title">Week 3: Launch Your First Campaigns</div>
+                    </div>
+                </div>
+                <div class="course-details">
+                    <strong>Campaign Strategy:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--color-text-secondary);">
+                        <li><strong>Search Campaign:</strong> High-intent keywords, tight geo-targeting</li>
+                        <li><strong>Budget:</strong> Start with $20-50/day to gather data</li>
+                        <li><strong>Conversions:</strong> Track phone calls + online orders</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-rank">📊</div>
+                    <div class="course-info">
+                        <div class="course-title">Week 4: Add Performance Max</div>
+                    </div>
+                </div>
+                <div class="course-details">
+                    <strong>Prerequisites:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--color-text-secondary);">
+                        <li>Have at least 15-30 conversions from Search campaign</li>
+                        <li>Prepare high-quality assets (bouquet photos, videos, headlines)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="course-card" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1)); border-color: rgba(0, 212, 255, 0.3);">
+                <div class="course-info">
+                    <div class="course-title" style="font-size: 1.3rem;">💡 Pro Tip: The "Just Starting" Free Stack</div>
+                </div>
+                <div class="course-details" style="margin-top: 15px;">
+                    <strong>Everything you need for $0:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--color-text-secondary);">
+                        <li>✅ Google Keyword Planner</li>
+                        <li>✅ Google Trends</li>
+                        <li>✅ Google Ads Transparency Center</li>
+                        <li>✅ Google Ads Editor</li>
+                        <li>✅ Google Analytics + Tag Manager</li>
+                        <li>✅ Canva (free tier)</li>
+                        <li>✅ WordStream Performance Grader</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px; color: var(--color-text-secondary);">This free stack is powerful enough to get you to $5K-10K/month in ad spend. Only upgrade to paid tools when you're ready to scale past that.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p class="footer-text">Built for flower shop owners ready to dominate Google Ads in 2026 🌸</p>
+            <p class="footer-text" style="margin-top: 10px; font-size: 0.8rem;">All tools and courses verified and updated for February 2026</p>
+        </footer>
+    </div>
+
+    <div class="scroll-top">
+        <span style="font-size: 1.5rem;">↑</span>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add click event listeners to tab buttons
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                switchTab(tabName);
+            });
+        });
+
+        // Course filtering functionality
+        function filterCourses(filter) {
+            const courses = document.querySelectorAll('.course-card[data-lang]');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            courses.forEach(course => {
+                if (filter === 'all') {
+                    course.style.display = 'block';
+                } else if (filter === 'english') {
+                    course.style.display = course.dataset.lang === 'english' ? 'block' : 'none';
+                } else if (filter === 'spanish') {
+                    course.style.display = course.dataset.lang === 'spanish' ? 'block' : 'none';
+                } else if (filter === 'pmax') {
+                    course.style.display = course.dataset.type === 'pmax' ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Add click event listeners to filter buttons
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                filterCourses(filter);
+            });
+        });
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelector('.scroll-top').addEventListener('click', scrollToTop);
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (window.scrollY > 500) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+        // Language toggle (simplified - ready for future expansion)
+        let currentLang = 'en';
+        document.getElementById('lang-toggle').addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            this.textContent = currentLang === 'en' ? '🌐 ES' : '🌐 EN';
+            // Language switching functionality can be expanded here
+        });
+    </script>
+</body>
+</html>
